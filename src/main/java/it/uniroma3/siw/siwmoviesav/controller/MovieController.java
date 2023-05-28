@@ -29,10 +29,15 @@ public class MovieController {
             return "formNewMovie.html";
         }
     }
+    @GetMapping("/movies")
+    public String showMovies(Model model){
+        model.addAttribute("movies", this.movieRepository.findAll());
+        return "movies.html";
+    }
     @GetMapping("/movies/{id}")
     public String getMovie(@PathVariable("id") Long id, Model model){
         model.addAttribute("movie", this.movieRepository.findById(id).get());
-        return "moview.html";
+        return "movie.html";
     }
     @GetMapping("/formSearchMovies")
     public String formSearchMovies(Model model){

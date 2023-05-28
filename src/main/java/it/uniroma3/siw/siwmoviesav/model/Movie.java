@@ -1,10 +1,8 @@
 package it.uniroma3.siw.siwmoviesav.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 @Entity
 public class Movie {
@@ -14,6 +12,10 @@ public class Movie {
     private String title;
     private Integer year;
     private String urlImage;
+    @OneToOne
+    private Artist director;
+    @OneToMany
+    private List<Artist> actors;
     public Movie(){
 
     }

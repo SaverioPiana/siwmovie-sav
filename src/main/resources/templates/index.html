@@ -5,6 +5,26 @@
     <title>Movies Database</title>
 </head>
 <body>
+    <header>
+        <div th:if="${userDetails}">
+            <span th:text="${userDetails.username}"></span>
+            <a href="/logout">Logout</a>
+        </div>
+        <div th:unless="${user}">
+            <a href="/login">Login</a>
+        </div>
+    </header>
 
+    <div><img src="SIWDb_logo.png" width="15%" /></div>
+    <h1>Consulta l'archivio</h1>
+    <div>
+        <a href="/movies">Elenco Film</a>
+    </div>
+    <div>
+        <a href="/artist">Elenco Artisti</a>
+    </div>
+    <div>
+        <a href="/news">News</a>
+    </div>
 </body>
 </html>

@@ -16,8 +16,10 @@ public class Artist {
     private String surname;
     private LocalDate dateOfBirth;
     private String nationality;
-    @OneToMany
+    @OneToMany(mappedBy = "director")
     private List<Movie> directedMovies;
+    @ManyToMany(mappedBy = "actors")
+    private List<Movie> starredMovies;
     public Artist(){
 
     }

@@ -12,9 +12,9 @@ public class Movie {
     private String title;
     private Integer year;
     private String urlImage;
-    @OneToOne
+    @ManyToOne
     private Artist director;
-    @OneToMany
+    @ManyToMany
     private List<Artist> actors;
     public Movie(){
 

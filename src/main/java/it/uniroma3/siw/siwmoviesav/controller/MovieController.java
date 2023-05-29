@@ -18,26 +18,26 @@ public class MovieController {
         return "formNewMovie";
     }
 
-    @PostMapping("/movies")
+    @PostMapping("/movie")
     public String newMovie(@ModelAttribute("movie") Movie movie, Model model){
         if(!movieRepository.existsByTitleAndYear(movie.getTitle(), movie.getYear())){
             this.movieRepository.save(movie);
             model.addAttribute("movie", movie);
-            return "movie.html";
+            return "movie";
         }else{
             model.addAttribute("messaggioErrore", "Questo film esiste gia'");
-            return "formNewMovie.html";
+            return "formNewMovie";
         }
     }
-    @GetMapping("/movies")
+    @GetMapping("/movie")
     public String showMovies(Model model){
         model.addAttribute("movies", this.movieRepository.findAll());
-        return "movies.html";
+        return "movies";
     }
-    @GetMapping("/movies/{id}")
+    @GetMapping("/movie/{id}")
     public String getMovie(@PathVariable("id") Long id, Model model){
         model.addAttribute("movie", this.movieRepository.findById(id).get());
-        return "movie.html";
+        return "movie";
     }
     @GetMapping("/formSearchMovies")
     public String formSearchMovies(Model model){
@@ -46,6 +46,6 @@ public class MovieController {
     @PostMapping("/searchMovies")
     public String searchMovies(Model model, @RequestParam Integer year){
         model.addAttribute("movies", this.movieRepository.findByYear(year));
-        return "foundMovies.html";
+        return "foundMovies";
     }
 }

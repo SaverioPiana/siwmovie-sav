@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface MovieRepository extends CrudRepository<Movie, Long> {
     public List<Movie> findByYear(Integer year);
-    public boolean existsByTitleAndYear(String Title, Integer year);
+    public boolean existsByTitleAndYear(String title, Integer year);
 }

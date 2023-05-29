@@ -49,6 +49,22 @@ public class Movie {
         this.title = title;
     }
 
+    public Artist getDirector() {
+        return director;
+    }
+
+    public void setDirector(Artist director) {
+        this.director = director;
+    }
+
+    public List<Artist> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Artist> actors) {
+        this.actors = actors;
+    }
+
     public Integer getYear() {
         return year;
     }

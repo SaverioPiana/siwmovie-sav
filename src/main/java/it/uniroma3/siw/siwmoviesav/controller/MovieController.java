@@ -4,9 +4,11 @@ import it.uniroma3.siw.siwmoviesav.model.Artist;
 import it.uniroma3.siw.siwmoviesav.model.Movie;
 import it.uniroma3.siw.siwmoviesav.repository.ArtistRepository;
 import it.uniroma3.siw.siwmoviesav.repository.MovieRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -24,8 +26,8 @@ public class MovieController {
     }
 
     @PostMapping("/movie")
-    public String newMovie(@ModelAttribute("movie") Movie movie, Model model){
-        if(!movieRepository.existsByTitleAndYear(movie.getTitle(), movie.getYear())){
+    public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model){
+        if(!bindingResult.hasErrors()){
             this.movieRepository.save(movie);
             model.addAttribute("movie", movie);
             return "movie";
@@ -46,7 +48,7 @@ public class MovieController {
     }
     @GetMapping("/formSearchMovies")
     public String formSearchMovies(Model model){
-        return "formSearchMovies.html";
+        return "formSearchMovies";
     }
     @PostMapping("/searchMovies")
     public String searchMovies(Model model, @RequestParam Integer year){

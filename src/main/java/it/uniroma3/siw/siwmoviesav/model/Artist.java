@@ -1,11 +1,14 @@
 package it.uniroma3.siw.siwmoviesav.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Artist {
@@ -17,7 +20,7 @@ public class Artist {
     private String url_of_picture;
     private LocalDate dateOfBirth;
     @OneToMany(mappedBy = "director")
-    private List<Movie> directedMovies;
+    private Set<Movie> directedMovies;
     @ManyToMany(mappedBy = "actors")
     private List<Movie> starredMovies;
     public Artist(){
@@ -77,11 +80,11 @@ public class Artist {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public List<Movie> getDirectedMovies() {
+    public Set<Movie> getDirectedMovies() {
         return directedMovies;
     }
 
-    public void setDirectedMovies(List<Movie> directedMovies) {
+    public void setDirectedMovies(Set<Movie> directedMovies) {
         this.directedMovies = directedMovies;
     }
 

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
 @Entity
 public class Movie {
     @Id
@@ -15,7 +17,7 @@ public class Movie {
     @ManyToOne
     private Artist director;
     @ManyToMany
-    private List<Artist> actors;
+    private Set<Artist> actors;
     public Movie(){
 
     }
@@ -57,11 +59,11 @@ public class Movie {
         this.director = director;
     }
 
-    public List<Artist> getActors() {
+    public Set<Artist> getActors() {
         return actors;
     }
 
-    public void setActors(List<Artist> actors) {
+    public void setActors(Set<Artist> actors) {
         this.actors = actors;
     }
 

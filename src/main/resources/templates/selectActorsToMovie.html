@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Actors</title>
+</head>
+<body>
+  <h1 th:text = "${movie.title}"></h1>
+  <div th:unless = "${movie.actors.isEmpty()}">Current actors:
+      <ul>
+          <li th:each = "actor : ${movie.actors}">
+              <span th:text = "${actor.name} + ' ' + ${actor.surname}"></span>
+              <a th:href = "@{'/removeActorFromMovie/' + ${movie.id} + '/' + ${actor.id}}"> Rimuovi </a>
+          </li>
+      </ul>
+  </div>
+  <div><a th:href="@{'/movie/' + ${movie.id}}"></a></div>
+  <div>All Artists:</div>
+  <ul>
+    <li th:each = "artist : ${artists}">
+      <a th:href = "@{'/addActorToMovie/' + ${movie.id} + '/' + ${artist.id}}"
+         th:text = "${artist.name} + ' ' + ${artist.surname}"></a>
+    </li>
+  </ul>
+</body>
+</html>

@@ -7,7 +7,7 @@
 <body>
   <div><a href="/"><img src="SIWDb_logo.png" width="15%"/></a></div>
   <h1>Aggiungi un film</h1>
-  <form th:action="@{/movies}" method="POST" th:object="${movie}">
+  <form th:action="@{/movie}" method="POST" th:object="${movie}">
     <div>
       <span th:text="${messaggioErrore}">Errore</span>
     </div>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>Artist</title>
+</head>
+<body>
+  <h1 th:text = "${artist.name} + ${artist.surname}"></h1>
+  <h3 th:text = "${artist.dateOfBirth}"></h3>
+  <div th:unless = "${artist.directedMovies.isEmpty()}">
+    <div>Directed Movies</div>
+    <ul>
+      <li th:each = "movie : ${artist.directedMovies}">
+        <div><a th:href = "@{'/movie/' + ${movie.id}}"
+                th:text = "${movie.title}">Up!</a></div>
+      </li>
+    </ul>
+  </div>
+  <div th:unless = "${artist.starredMovies.isEmpty()}">
+    <div>Starred Movies</div>
+    <ul>
+      <li th:each = "movie : ${artist.starredMovies}">
+        <div><a th:href = "@{'/movie/' + ${movie.id}}"
+                th:text = "${movie.title}">Up!</a></div>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

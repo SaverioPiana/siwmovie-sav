@@ -8,8 +8,16 @@
 <div><a href="/"><img src="/SIWDb_logo.png" width="15%"/></a></div>
   <div th:if="${movie}">
   <h1 th:text="${movie.title}">Titolo film</h1>
-    <div>Anno: <span th:text="'(' + ${movie.year} + ')'">2000</span></div>
-    <span><img width="30%" th:src=${movie.urlImage} /></span>
+      <div>Anno: <span th:text="'(' + ${movie.year} + ')'">2000</span></div>
+      <div>Director: <span th:text="${movie.director.name} + ' ' + ${movie.director.surname}"></span></div>
+      <span><img width="30%" th:src=${movie.urlImage} /></span>
+      <h4>Actors:</h4>
+      <ul>
+          <li th:each = "actor: ${movie.actors}">
+              <a th:href = "@{'/artist/' + ${actor.id}}"
+                th:text = "${actor.name} + ' ' + ${actor.surname}"></a>
+          </li>
+      </ul>
   </div>
   <div th:unless="${movie}">Non esiste</div>
 

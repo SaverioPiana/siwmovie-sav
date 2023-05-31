@@ -1,5 +1,6 @@
 package it.uniroma3.siw.siwmoviesav.controller;
 
+import it.uniroma3.siw.siwmoviesav.controller.validator.MovieValidator;
 import it.uniroma3.siw.siwmoviesav.model.Artist;
 import it.uniroma3.siw.siwmoviesav.model.Movie;
 import it.uniroma3.siw.siwmoviesav.repository.ArtistRepository;
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class MovieController {
     @Autowired
     MovieRepository movieRepository;
-
+    @Autowired
+    MovieValidator movieValidator;
     @Autowired
     ArtistRepository artistRepository;
 
@@ -27,12 +29,12 @@ public class MovieController {
 
     @PostMapping("/movie")
     public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model){
+        movieValidator.validate(movie, bindingResult);
         if(!bindingResult.hasErrors()){
             this.movieRepository.save(movie);
             model.addAttribute("movie", movie);
             return "movie";
         }else{
-            model.addAttribute("messaggioErrore", "Questo film esiste gia'");
             return "formNewMovie";
         }
     }

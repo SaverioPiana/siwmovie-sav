@@ -9,13 +9,15 @@
   <h1>Add Movie</h1>
   <form th:action="@{/movie}" method="POST" th:object="${movie}">
     <div>
-      <span th:text="${messaggioErrore}">Error</span>
+      <p th:if = "${#fields.hasGlobalErrors()}" th:each = "err : ${#fields.globalErrors()}" th:text="${err}"></p>
     </div>
     <div>
       Title: <span><input required type="text" th:field="${movie.title}"/></span>
+      <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
     </div>
     <div>
       Anno: <span><input required type="text" th:field="${movie.year}"/></span>
+      <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
     </div>
     <div>
       URL image: <span><input type="url" th:field="${movie.urlImage}" /></span>

@@ -78,6 +78,6 @@ public class AuthenticationController {
             model.addAttribute("user", user);
             return "registrationSuccessful";
         }
-        return "registerUser";
+        return registerUser(user, userBindingResult, credentials, credentialsBindingResult,model);
     }
 }

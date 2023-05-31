@@ -24,9 +24,7 @@ public class Artist {
     @ManyToMany(mappedBy = "actors")
     private List<Movie> starredMovies;
     public Artist(){
-
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

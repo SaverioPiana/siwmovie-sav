@@ -26,7 +26,10 @@ public class UserService {
         Optional<User> result = this.userRepository.findById(id);
         return result.orElse(null);
     }
-
+    @Transactional
+    public boolean alreadyExists(User user){
+        return userRepository.existsByNameAndSurnameAndEmail(user.getName(),user.getSurname(),user.getEmail());
+    }
     /**
      * This method saves a User in the DB.
      * @param user the User to save into the DB

@@ -1,5 +1,7 @@
 package it.uniroma3.siw.siwmoviesav.controller;
 
+import it.uniroma3.siw.siwmoviesav.controller.validator.CredentialsValidator;
+import it.uniroma3.siw.siwmoviesav.controller.validator.UserValidator;
 import it.uniroma3.siw.siwmoviesav.model.Credentials;
 import it.uniroma3.siw.siwmoviesav.model.User;
 import it.uniroma3.siw.siwmoviesav.service.CredentialsService;
@@ -19,8 +21,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class AuthenticationController {
     @Autowired
+    private CredentialsValidator credentialsValidator;
+    @Autowired
     private CredentialsService credentialsService;
-
+    @Autowired
+    private UserValidator userValidator;
     @Autowired
     private UserService userService;
 
@@ -69,7 +74,10 @@ public class AuthenticationController {
                                @ModelAttribute("credentials") Credentials credentials,
                                BindingResult credentialsBindingResult,
                                Model model) {
-
+        //valida se ci sono untenti con stesso name surname e email
+        userValidator.validate(user, userBindingResult);
+        //valida se ci sono username uguali
+        credentialsValidator.validate(credentials, credentialsBindingResult);
         // se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             userService.saveUser(user);
@@ -78,6 +86,6 @@ public class AuthenticationController {
             model.addAttribute("user", user);
             return "registrationSuccessful";
         }
-        return registerUser(user, userBindingResult, credentials, credentialsBindingResult,model);
+        return "formRegisterUser";
     }
 }

@@ -23,7 +23,10 @@ public class CredentialsService {
         Optional<Credentials> result = this.credentialsRepository.findById(id);
         return result.orElse(null);
     }
-
+    @Transactional
+    public boolean alreadyExistsUsername(String username){
+        return credentialsRepository.existsByUsername(username);
+    }
     @Transactional
     public Credentials getCredentials(String username) {
         Optional<Credentials> result = this.credentialsRepository.findByUsername(username);

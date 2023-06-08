@@ -1,6 +1,9 @@
 package it.uniroma3.siw.siwmoviesav.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class Credentials {

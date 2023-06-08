@@ -75,7 +75,8 @@ public class MovieController {
                                      @PathVariable("artist_id") Long artist_id,
                                      Model model){
         Artist director = artistService.findById(artist_id);
-        if(artis)
+        if(director == null) return "/errors/artistNotFoundError";
+
         Movie movie = movieService.findById(movie_id);
         if(movie == null) return "/errors/movieNotFoundError";
 
@@ -98,6 +99,8 @@ public class MovieController {
                                      @PathVariable("artist_id") Long artist_id,
                                      Model model){
         Artist actor = artistService.findById(artist_id);
+        if(actor == null) return "/errors/artistNotFoundError";
+
         Movie movie = movieService.findById(movie_id);
         if(movie == null) return "/errors/movieNotFoundError";
 
@@ -111,8 +114,11 @@ public class MovieController {
                                   @PathVariable("artist_id") Long artist_id,
                                   Model model){
         Artist actor = artistService.findById(artist_id);
+        if(actor == null) return "/errors/artistNotFoundError";
+
         Movie movie = movieService.findById(movie_id);
         if(movie == null) return "/errors/movieNotFoundError";
+
         movie.getActors().remove(actor);
         movieService.updateMovie(movie);
         model.addAttribute("movie", movie);

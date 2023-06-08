@@ -6,8 +6,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class MovieService {
     @Autowired
@@ -21,10 +19,17 @@ public class MovieService {
     public void updateMovie(Movie movie){
         movieRepository.save(movie);
     }
-    public Movie findById(Long id){
-        return movieRepository.findById(id).orElse(null);
+    public boolean alreadyExists(Movie movie){
+        return movieRepository.existsByTitleAndYear(movie.getTitle(), movie.getYear());
     }
     public Iterable<Movie> findAll(){
         return movieRepository.findAll();
     }
+    public Iterable<Movie> findByYear(Integer year){
+        return movieRepository.findByYear(year);
+    }
+    public Movie findById(Long id){
+        return movieRepository.findById(id).orElse(null);
+    }
+
 }

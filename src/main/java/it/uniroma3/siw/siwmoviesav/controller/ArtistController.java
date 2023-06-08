@@ -19,7 +19,8 @@ public class ArtistController {
 
     @PostMapping("/artist")
     public String newArtist(@Valid @ModelAttribute("artist") Artist artist, BindingResult bindingResult, Model model){
-
+        //da completare
+    return "/artists";
     }
     @GetMapping("/artist")
     public String showArtists(Model model){

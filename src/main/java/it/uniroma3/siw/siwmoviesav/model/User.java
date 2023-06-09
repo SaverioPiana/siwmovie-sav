@@ -2,6 +2,7 @@ package it.uniroma3.siw.siwmoviesav.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Null;
 
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ public class User {
     private String surname;
     @NotBlank
     private String email;
-    private String path_of_pic;
+    private String picFilename;
 
     @Override
     public boolean equals(Object o) {
@@ -31,12 +32,15 @@ public class User {
     public int hashCode() {
         return Objects.hash(name, surname, email);
     }
-    public String getPath_of_pic() {
-        return path_of_pic;
+    public String getPicPath(){
+        if(picFilename != null) return "/user_pics/" + this.getId() + this.getPicFilename();
+        return "/images/default_profile_pic";
     }
-
-    public void setPath_of_pic(String path_of_pic) {
-        this.path_of_pic = path_of_pic;
+    public String getPicFilename() {
+        return picFilename;
+    }
+    public void setPicFilename(String path_of_pic) {
+        this.picFilename = path_of_pic;
     }
     public Long getId() {
         return id;

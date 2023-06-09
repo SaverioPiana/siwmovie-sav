@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @ControllerAdvice
 public class GlobalController {
     @Autowired
-    private CredentialsService credentialsService;
+    private UserService userService;
     @ModelAttribute("userAuthDetails")
     public UserDetails getUserAuthDetails() {
         UserDetails user = null;
@@ -27,13 +27,6 @@ public class GlobalController {
     }
     @ModelAttribute("user")
     public User getUser() {
-        User user = null;
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-
-            String username = authentication.getName();
-            user = credentialsService.getCredentials(username).getUser();
-        }
-        return user;
+        return userService.getCurrentUser();
     }
 }

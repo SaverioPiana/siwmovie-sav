@@ -5,6 +5,9 @@ import it.uniroma3.siw.siwmoviesav.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +18,8 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     protected UserRepository userRepository;
+    @Autowired
+    protected CredentialsService credentialsService;
 
     /**
      * This method retrieves a User from the DB based on its ID.
@@ -25,6 +30,18 @@ public class UserService {
     public User getUser(Long id) {
         Optional<User> result = this.userRepository.findById(id);
         return result.orElse(null);
+    }
+
+    @Transactional
+    public User getCurrentUser() {
+        User user = null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+
+            String username = authentication.getName();
+            user = credentialsService.getCredentials(username).getUser();
+        }
+        return user;
     }
     @Transactional
     public boolean alreadyExists(User user){

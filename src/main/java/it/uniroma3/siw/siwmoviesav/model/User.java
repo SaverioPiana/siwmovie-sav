@@ -33,7 +33,7 @@ public class User {
         return Objects.hash(name, surname, email);
     }
     public String getPicPath(){
-        if(picFilename != null) return "/images/user_pics/" + this.getId() + "/"
+        if(picFilename != null) return "/upload/images/user_pics/" + this.getId() + "/"
                                 +this.getPicFilename();
         return "/images/default_profile_pic.png";
     }

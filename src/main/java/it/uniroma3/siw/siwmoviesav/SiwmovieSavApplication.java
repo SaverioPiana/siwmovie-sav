@@ -2,6 +2,12 @@ package it.uniroma3.siw.siwmoviesav;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @SpringBootApplication
 public class SiwmovieSavApplication {
@@ -10,4 +16,15 @@ public class SiwmovieSavApplication {
 		SpringApplication.run(SiwmovieSavApplication.class, args);
 	}
 
+
+	@Configuration
+	public class WebConfig implements WebMvcConfigurer {
+		@Override
+		public void addResourceHandlers(ResourceHandlerRegistry registry) {
+			String absolutePathToImages = Paths.get("src/main/upload").toAbsolutePath().toString();
+			registry.addResourceHandler("/upload/**")
+					.addResourceLocations("file:" + absolutePathToImages + "/")
+					.setCachePeriod(0);
+		}
+	}
 }

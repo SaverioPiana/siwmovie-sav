@@ -6,9 +6,9 @@
 </head>
 <body>
 <div th:text="${user.getName()} + ' ' + ${user.getSurname()}"></div>
-<form action="@{registered/saveProfileImage}" method="post">
+<form th:action="@{/registered/saveProfileImage}" method="POST" enctype="multipart/form-data">
     <label for="modifyImage">Modifica</label>
-    <input id="modifyImage"  type="file" accept="image/*" onchange="form.submit()">
+    <input id="modifyImage" name="image" type="file" accept="image/*" onchange="form.submit()">
 </form>
 <img th:src="${user.getPicPath}">
 </body>

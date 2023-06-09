@@ -33,8 +33,9 @@ public class User {
         return Objects.hash(name, surname, email);
     }
     public String getPicPath(){
-        if(picFilename != null) return "/user_pics/" + this.getId() + this.getPicFilename();
-        return "/images/default_profile_pic";
+        if(picFilename != null) return "/images/user_pics/" + this.getId() + "/"
+                                +this.getPicFilename();
+        return "/images/default_profile_pic.png";
     }
     public String getPicFilename() {
         return picFilename;

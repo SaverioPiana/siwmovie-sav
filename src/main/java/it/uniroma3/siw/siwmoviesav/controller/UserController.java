@@ -28,7 +28,8 @@ public class UserController {
     public String saveProfileImage(User user, @RequestParam("image")MultipartFile multipartFile, Model model) throws IOException{
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         user.setPicFilename(fileName);
-        String uploadDir = "user_pics/" + user.getId();
+        userService.saveUser(user);
+        String uploadDir = "src/main/upload/images/user_pics/" + user.getId();
 
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
     return showProfilePage(model);

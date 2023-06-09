@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -27,7 +28,7 @@ public class Movie {
     @ManyToMany
     private Set<Artist> actors;
     public Movie(){
-
+    actors = new HashSet<>();
     }
 
     @Override

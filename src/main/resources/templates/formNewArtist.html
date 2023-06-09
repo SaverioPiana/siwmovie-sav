@@ -5,6 +5,30 @@
     <title>New Artist</title>
 </head>
 <body>
+<div><a href="/"><img src="/images/SIWDb_logo.png" width="15%"/></a></div>
+<h1>Add Artist</h1>
+<form th:action="@{/artist}" method="POST" th:object="${artist}">
+    <div>
+        <p th:if = "${#fields.hasGlobalErrors()}" th:each = "err : ${#fields.globalErrors()}" th:text="${err}"></p>
+    </div>
+    <div>
+        Title: <span><input required type="text" th:field="${artist.name}"/></span>
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </div>
+    <div>
+        Anno: <span><input required type="text" th:field="${artist.surname}"/></span>
+        <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+    </div>
+    <div>
+        URL image: <span><input type="date" th:field="${artist.dateOfBirth}" /></span>
+    </div>
+    <div>
+        URL image: <span><input type="file" th:field="${artist.url_of_picture}" /></span>
+    </div>
+    <div>
+        <span><button type="submit">Confirm</button></span>
+    </div>
+</form>
 
 </body>
 </html>

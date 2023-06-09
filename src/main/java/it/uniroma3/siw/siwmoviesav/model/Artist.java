@@ -2,13 +2,12 @@ package it.uniroma3.siw.siwmoviesav.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Entity
 public class Artist {
@@ -24,6 +23,8 @@ public class Artist {
     @ManyToMany(mappedBy = "actors")
     private List<Movie> starredMovies;
     public Artist(){
+        directedMovies = new HashSet<>();
+        starredMovies = new ArrayList<>();
     }
     @Override
     public boolean equals(Object o) {
@@ -72,6 +73,10 @@ public class Artist {
 
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
+    }
+    public String getDateOfBirthFormatted() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return dateOfBirth.format(formatter);
     }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {

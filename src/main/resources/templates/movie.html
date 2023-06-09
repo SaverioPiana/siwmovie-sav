@@ -14,7 +14,7 @@
       </div>
       <span><img width="30%" th:src= "${movie.urlImage}"/></span>
       <div><h4>Actors:</h4><span><a th:href="@{'/selectActorsToMovie/' + ${movie.id}}">   Edit Actors</a></span></div>
-      <div th:unless="${movie.actors.isEmpty()}">
+      <div th:unless="${movie.actors} or ${movie.actors.isEmpty()}">
           <ul>
               <li th:each = "actor: ${movie.actors}">
                   <a th:href = "@{'/artist/' + ${actor.id}}"

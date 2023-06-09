@@ -17,6 +17,7 @@ public class User {
     private String surname;
     @NotBlank
     private String email;
+    private String path_of_pic;
 
     @Override
     public boolean equals(Object o) {
@@ -30,7 +31,13 @@ public class User {
     public int hashCode() {
         return Objects.hash(name, surname, email);
     }
+    public String getPath_of_pic() {
+        return path_of_pic;
+    }
 
+    public void setPath_of_pic(String path_of_pic) {
+        this.path_of_pic = path_of_pic;
+    }
     public Long getId() {
         return id;
     }

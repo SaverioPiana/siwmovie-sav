@@ -6,8 +6,8 @@
 </head>
 <body>
   <h1 th:text = "${artist.name} + ${artist.surname}"></h1>
-  <h3 th:text = "${artist.dateOfBirth}"></h3>
-  <div th:unless = "${artist.directedMovies.isEmpty()}">
+  <h3 th:text = "${artist.getDateOfBirthFormatted()}"></h3>
+  <div th:unless = "${artist.directedMovies} or ${artist.directedMovies.isEmpty()}">
     <div>Directed Movies</div>
     <ul>
       <li th:each = "movie : ${artist.directedMovies}">
@@ -16,7 +16,7 @@
       </li>
     </ul>
   </div>
-  <div th:unless = "${artist.starredMovies.isEmpty()}">
+  <div th:unless = "${artist.starredMovies} or ${artist.starredMovies.isEmpty()}">
     <div>Starred Movies</div>
     <ul>
       <li th:each = "movie : ${artist.starredMovies}">

@@ -6,6 +6,7 @@
 </head>
 <body>
 <div><a href="/"><img src="/images/SIWDb_logo.png" width="15%"/></a></div>
+<div th:unless="${movie}">Non esiste</div>
   <div th:if="${movie}">
   <h1 th:text="${movie.title}">Titolo film</h1>
       <div>Anno: <span th:text="'(' + ${movie.year} + ')'">2000</span></div>
@@ -23,7 +24,15 @@
           </ul>
       </div>
   </div>
-  <div th:unless="${movie}">Non esiste</div>
-
+<div th:if="${movie.reviews}">
+    <ul>
+        <li th:each ="review : ${movie.reviews}">
+            <div><h3  th:text="${review.title}+ '  '"><span th:text="${review.score}+ '    '"></span>
+                <span th:text="${review.getCreationDateTime()}"></span></h3>
+                <p th:text="${review.content}"></p>
+            </div>
+        </li>
+    </ul>
+</div>
 </body>
 </html>

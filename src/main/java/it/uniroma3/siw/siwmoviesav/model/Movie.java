@@ -27,8 +27,11 @@ public class Movie {
     private Artist director;
     @ManyToMany
     private Set<Artist> actors;
+    @OneToMany(mappedBy = "reviewedMovie")
+    private Set<Review> reviews;
     public Movie(){
     actors = new HashSet<>();
+    reviews = new HashSet<>();
     }
 
     @Override
@@ -38,7 +41,13 @@ public class Movie {
         Movie movie = (Movie) o;
         return Objects.equals(title, movie.title) && Objects.equals(year, movie.year);
     }
+    public Set<Review> getReviews() {
+        return reviews;
+    }
 
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
+    }
     @Override
     public int hashCode() {
         return Objects.hash(title, year);

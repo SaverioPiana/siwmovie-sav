@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Null;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -19,6 +20,10 @@ public class User {
     @NotBlank
     private String email;
     private String picFilename;
+    @OneToMany
+    private Set<Movie> watchList;
+    @OneToMany(mappedBy = "author")
+    private Set<Review> Reviews;
 
     @Override
     public boolean equals(Object o) {

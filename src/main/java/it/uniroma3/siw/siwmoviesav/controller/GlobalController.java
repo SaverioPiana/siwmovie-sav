@@ -1,8 +1,6 @@
 package it.uniroma3.siw.siwmoviesav.controller;
 
-import it.uniroma3.siw.siwmoviesav.model.Credentials;
 import it.uniroma3.siw.siwmoviesav.model.User;
-import it.uniroma3.siw.siwmoviesav.service.CredentialsService;
 import it.uniroma3.siw.siwmoviesav.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -25,7 +23,7 @@ public class GlobalController {
         }
         return user;
     }
-    @ModelAttribute("user")
+    @ModelAttribute("globalUser")
     public User getUser() {
         return userService.getCurrentUser();
     }

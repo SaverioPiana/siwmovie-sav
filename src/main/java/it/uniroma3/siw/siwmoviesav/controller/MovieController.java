@@ -23,7 +23,8 @@ public class MovieController {
 
     @GetMapping("/formNewMovie")
     public String formNewMovie(Model model){
-        model.addAttribute("movie", new Movie());
+        Movie movie =  new Movie();
+        model.addAttribute("movie", movie);
         return "formNewMovie";
     }
 

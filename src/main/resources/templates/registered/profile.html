@@ -5,11 +5,11 @@
     <title>Profile</title>
 </head>
 <body>
-<div th:text="${user.getName()} + ' ' + ${user.getSurname()}"></div>
+<div th:text="${globalUser.getName()} + ' ' + ${globalUser.getSurname()}"></div>
 <form th:action="@{/registered/saveProfileImage}" method="POST" enctype="multipart/form-data">
     <label for="modifyImage">Modifica</label>
     <input id="modifyImage" name="image" type="file" accept="image/*" onchange="form.submit()">
 </form>
-<img th:src="${user.getPicPath}" width="10%">
+<img th:src="${globalUser.getPicPath}" width="10%">
 </body>
 </html>

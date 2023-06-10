@@ -25,8 +25,9 @@ public class UserController {
         return "/registered/profile";
     }
     @PostMapping("/registered/saveProfileImage")
-    public String saveProfileImage(User user, @RequestParam("image")MultipartFile multipartFile, Model model) throws IOException{
+    public String saveProfileImage(@RequestParam("image")MultipartFile multipartFile, Model model) throws IOException{
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        User user = userService.getCurrentUser();
         user.setPicFilename(fileName);
         userService.saveUser(user);
         String uploadDir = "src/main/upload/images/user_pics/" + user.getId();

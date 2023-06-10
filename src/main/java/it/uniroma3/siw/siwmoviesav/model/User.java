@@ -2,8 +2,8 @@ package it.uniroma3.siw.siwmoviesav.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Null;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -23,7 +23,7 @@ public class User {
     @OneToMany
     private Set<Movie> watchList;
     @OneToMany(mappedBy = "author")
-    private Set<Review> Reviews;
+    private Set<Review> reviews;
 
     @Override
     public boolean equals(Object o) {
@@ -42,6 +42,23 @@ public class User {
                                 +this.getPicFilename();
         return "/images/default_profile_pic.png";
     }
+
+    public Set<Movie> getWatchList() {
+        return watchList;
+    }
+
+    public void setWatchList(Set<Movie> watchList) {
+        this.watchList = watchList;
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     public String getPicFilename() {
         return picFilename;
     }

@@ -31,21 +31,21 @@ public class AuthenticationController {
 
     @GetMapping(value = "/register")
     public String showRegisterForm (Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user",  new User());
         model.addAttribute("credentials", new Credentials());
-        return "formRegisterUser";
+        return "/formRegisterUser";
     }
 
     @GetMapping(value = "/login")
     public String showLoginForm (Model model) {
-        return "formLogin";
+        return "/formLogin";
     }
 
     @GetMapping(value = "/")
     public String index(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof AnonymousAuthenticationToken) {
-            return "index";
+            return "/index";
         }
         else {
             UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -54,7 +54,7 @@ public class AuthenticationController {
                 return "admin/indexAdmin";
             }
         }
-        return "index";
+        return "/index";
     }
 
     @GetMapping(value = "/success")
@@ -65,7 +65,7 @@ public class AuthenticationController {
         if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
             return "admin/indexAdmin";
         }
-        return "index";
+        return "/index";
     }
 
     @PostMapping(value = { "/register" })
@@ -78,14 +78,14 @@ public class AuthenticationController {
         userValidator.validate(user, userBindingResult);
         //valida se ci sono username uguali
         credentialsValidator.validate(credentials, credentialsBindingResult);
-        // se user e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
+        // se globalUser e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
             userService.saveUser(user);
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials);
             model.addAttribute("user", user);
-            return "registrationSuccessful";
+            return "/registrationSuccessful";
         }
-        return "formRegisterUser";
+        return "/formRegisterUser";
     }
 }

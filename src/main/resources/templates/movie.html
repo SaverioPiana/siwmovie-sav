@@ -24,6 +24,7 @@
           </ul>
       </div>
   </div>
+<a th:if="${userAuthDetails}" th:href="${'/registered/formNewReview/'+movie.getId()}">Add Review</a>
 <div th:if="${movie.reviews}">
     <ul>
         <li th:each ="review : ${movie.reviews}">

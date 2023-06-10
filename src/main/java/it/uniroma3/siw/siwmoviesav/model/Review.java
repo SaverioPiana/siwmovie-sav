@@ -1,7 +1,10 @@
 package it.uniroma3.siw.siwmoviesav.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,7 +17,9 @@ public class Review {
     private Long id;
     @NotBlank
     private String title;
-    @NotBlank
+    @NotNull
+    @Max(100)
+    @Min(1)
     private Integer score;
     private LocalDateTime creationDateTime;
     private String content;
@@ -25,6 +30,10 @@ public class Review {
 
     public Review(){
 
+    }
+    public Review(Movie movie, User author){
+        this.reviewedMovie = movie;
+        this.author = author;
     }
 
     @Override

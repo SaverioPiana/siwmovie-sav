@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.LocalDateTime;
+
 @Controller
 public class ReviewController {
     @Autowired
@@ -28,21 +30,33 @@ public class ReviewController {
 
     @GetMapping("/registered/formNewReview/{movie_id}")
     public String formNewReview(@PathVariable("movie_id") Long movie_id,Model model){
-        Movie movie = movieService.findById(movie_id);
-        if(movie == null) return "/errors/movieNotFoundError";
-
-        Review review = new Review(movie, userService.getCurrentUser());
-        model.addAttribute("review", review);
+        model.addAttribute("review", new Review());
+        model.addAttribute("movie_id", movie_id);
         return "registered/formNewReview";
     }
-    @PostMapping("/registered/review")
-    public String newMovie(@Valid @ModelAttribute("review") Review review, BindingResult bindingResult, Model model){
+    @PostMapping("/registered/review/{movie_id}")
+    public String newMovie(@PathVariable("movie_id") Long movie_id,@Valid @ModelAttribute("review") Review review, BindingResult bindingResult, Model model){
+        if(!userService.canReview(userService.getCurrentUser(), movieService.findById(movie_id))){
+            return "errors/cannotCreateMoreReview";
+        }
         if(!bindingResult.hasErrors()){
+            Movie movie = movieService.findById(movie_id);
+            if(movie == null) return "/errors/movieNotFoundError";
+
+            review.setReviewedMovie(movie);
+            review.setAuthor(userService.getCurrentUser());
+            review.setCreationDateTime(LocalDateTime.now());
             this.reviewService.createNewReview(review);
             model.addAttribute("review", review);
-            return "movie/" + review.getReviewedMovie().getId();
+            return "redirect:/movie/" + movie_id;
         }else{
             return "/registered/formNewReview";
         }
+    }
+    public boolean canReview(User user, Movie movie){
+        for (Review review : user.getReviews()) {
+            if(review.getReviewedMovie().equals(movie)) return false;
+        }
+        return true;
     }
 }

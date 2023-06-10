@@ -1,5 +1,7 @@
 package it.uniroma3.siw.siwmoviesav.service;
 
+import it.uniroma3.siw.siwmoviesav.model.Movie;
+import it.uniroma3.siw.siwmoviesav.model.Review;
 import it.uniroma3.siw.siwmoviesav.model.User;
 import it.uniroma3.siw.siwmoviesav.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -20,6 +22,7 @@ public class UserService {
     protected UserRepository userRepository;
     @Autowired
     protected CredentialsService credentialsService;
+    private final Integer maxReviewPerUserPerMovie = 1;
 
     /**
      * This method retrieves a User from the DB based on its ID.
@@ -42,6 +45,13 @@ public class UserService {
             user = credentialsService.getCredentials(username).getUser();
         }
         return user;
+    }
+    //check if a user can review a movie
+    public boolean canReview(User user, Movie movie){
+        for (Review review : user.getReviews()) {
+            if(review.getReviewedMovie().equals(movie)) return false;
+        }
+        return true;
     }
     @Transactional
     public boolean alreadyExists(User user){

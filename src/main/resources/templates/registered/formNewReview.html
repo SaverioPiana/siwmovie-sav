@@ -7,20 +7,20 @@
 <body>
 <div><a href="/"><img src="/images/SIWDb_logo.png" width="15%"/></a></div>
 <h1>Add Review</h1>
-<form th:action="@{/registered/review}" method="POST" th:object="${review}">
+<form th:action="@{'/registered/review/' +${movie_id}}" method="POST" th:object="${review}">
     <div>
         <p th:if = "${#fields.hasGlobalErrors()}" th:each = "err : ${#fields.globalErrors()}" th:text="${err}"></p>
     </div>
     <div>
-        Title: <span><input required type="text" th:field="*{title}"/></span>
-        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+        Title: <span><input required type="text" th:field="${review.title}"/></span>
+        <span th:if="${#fields.hasErrors('title')}" th:errors="${review.title}"></span>
     </div>
     <div>
-        Score: <span><input required type="number" th:field="*{score}"/></span>
-        <span th:if="${#fields.hasErrors('score')}" th:errors="*{score}"></span>
+        Score: <span><input required type="number" th:field="${review.score}"/></span>
+        <span th:if="${#fields.hasErrors('score')}" th:errors="${review.score}"></span>
     </div>
     <div>
-        Content: <span><input type="text" th:field="*{content}" /></span>
+        Content: <span><input type="text" th:field="${review.content}" /></span>
     </div>
     <div>
         <span><button type="submit">Confirm</button></span>

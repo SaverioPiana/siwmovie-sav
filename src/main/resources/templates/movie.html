@@ -28,8 +28,8 @@
 <div th:if="${movie.reviews}">
     <ul>
         <li th:each ="review : ${movie.reviews}">
-            <div><h3  th:text="${review.title}+ '  '"><span th:text="${review.score}+ '    '"></span>
-                <span th:text="${review.getCreationDateTime()}"></span></h3>
+            <div><strong  th:text="${review.title}+ '  '"></strong><span th:text="${review.score}+ '    '"></span>
+                <span th:text="${review.getCreationDateTime()}"></span>
                 <p th:text="${review.content}"></p>
             </div>
         </li>

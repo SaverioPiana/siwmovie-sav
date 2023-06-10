@@ -27,7 +27,7 @@ public class Movie {
     private Artist director;
     @ManyToMany
     private Set<Artist> actors;
-    @OneToMany(mappedBy = "reviewedMovie")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "reviewedMovie")
     private Set<Review> reviews;
     public Movie(){
     actors = new HashSet<>();

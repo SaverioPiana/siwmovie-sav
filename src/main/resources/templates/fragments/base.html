@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fragments</title>
+</head>
+<body>
+<th:block th:fragment="header">
+  <header th:fragment="header">
+    <div>
+      <a href="/"><img src="/images/SIWDb_logo.png" width="10%" alt="logo"/></a>
+        <div th:if="${userAuthDetails}">
+          <a href="/registered/profile"><img th:src="${globalUser.getPicPath()}" width="10%" alt="profile pic"></a>
+          <span>
+            <a th:text="${userAuthDetails.username}" href="/registered/profile"></a>
+            <a href="/logout">Logout</a>
+          </span>
+        </div>
+        <div th:unless="${userAuthDetails}">
+            <a href="/login">Login</a>
+        </div>
+    </div>
+  </header>
+</th:block>
+</body>
+</html>

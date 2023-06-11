@@ -5,17 +5,7 @@
     <title>Movies Database</title>
 </head>
 <body>
-    <header>
-        <div th:if="${userAuthDetails}">
-            <a th:text="${userAuthDetails.username}" href="/registered/profile"></a>
-            <a href="/logout">Logout</a>
-        </div>
-        <div th:unless="${userAuthDetails}">
-            <a href="/login">Login</a>
-        </div>
-    </header>
-
-    <div><img src="/images/SIWDb_logo.png" width="15%" /></div>
+<div th:replace="fragments/base :: header"></div>
     <h1>Access the archive</h1>
     <div>
         <a href="/movie">Movies</a>

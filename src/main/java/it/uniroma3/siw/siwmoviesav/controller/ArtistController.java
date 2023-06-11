@@ -22,36 +22,33 @@ public class ArtistController {
     private ArtistValidator artistValidator;
     @Autowired
     private ArtistService artistService;
-
-
-    @GetMapping("/formNewArtist")
-    public String formNewArtist(Model model){
-        model.addAttribute("artist", new Artist());
-        return "formNewArtist";
-    }
-    @PostMapping("/artist")
-    public String newArtist(@Valid @ModelAttribute("artist") Artist artist, BindingResult bindingResult, Model model){
-        artistValidator.validate(artist, bindingResult);
-        if(!bindingResult.hasErrors()){
-            this.artistService.save(artist);
-            model.addAttribute("movie", artist);
-            return "artist";
-        }else{
-            return "formNewArtist";
-        }
-    }
     @GetMapping("/artist")
     public String showArtists(Model model){
         model.addAttribute("artists", artistService.findAll());
         return "artists";
     }
-
     @GetMapping("/artist/{id}")
     public String getArtist(@PathVariable("id") Long id, Model model){
         model.addAttribute("artist", artistService.findById(id));
         return "artist";
     }
     //###########  ADMIN  ############
+    @GetMapping("/admin/formNewArtist")
+    public String formNewArtist(Model model){
+        model.addAttribute("artist", new Artist());
+        return "/admin/formNewArtist";
+    }
+    @PostMapping("/admin/artist")
+    public String newArtist(@Valid @ModelAttribute("artist") Artist artist, BindingResult bindingResult, Model model){
+        artistValidator.validate(artist, bindingResult);
+        if(!bindingResult.hasErrors()){
+            this.artistService.save(artist);
+            model.addAttribute("movie", artist);
+            return "/admin/artistAdmin";
+        }else{
+            return "/admin/formNewArtist";
+        }
+    }
     @GetMapping("/admin/artist")
     public String showArtistsAdmin(Model model){
         model.addAttribute("artists", artistService.findAll());

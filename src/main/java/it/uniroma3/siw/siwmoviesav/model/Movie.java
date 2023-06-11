@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,7 +21,7 @@ public class Movie {
     @Min(1900)
     @Max(2023)
     private Integer year;
-    private String urlImage;
+    private String picFilename;
     @ManyToOne
     private Artist director;
     @ManyToMany
@@ -40,6 +39,11 @@ public class Movie {
         if (o == null || getClass() != o.getClass()) return false;
         Movie movie = (Movie) o;
         return Objects.equals(title, movie.title) && Objects.equals(year, movie.year);
+    }
+    public String getPicPath(){
+        if(picFilename != null) return "/upload/images/movie_pics/" + this.getId() + "/"
+                +this.getPicFilename();
+        return "/images/default_profile_pic.png";
     }
     public Set<Review> getReviews() {
         return reviews;
@@ -93,11 +97,11 @@ public class Movie {
         this.year = year;
     }
 
-    public String getUrlImage() {
-        return urlImage;
+    public String getPicFilename() {
+        return picFilename;
     }
 
-    public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
+    public void setPicFilename(String urlImage) {
+        this.picFilename = urlImage;
     }
 }

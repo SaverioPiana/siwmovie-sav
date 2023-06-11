@@ -16,7 +16,7 @@
     <div>Directed Movies</div>
     <ul>
       <li th:each = "movie : ${artist.directedMovies}">
-        <div><a th:href = "@{'/movie/' + ${movie.id}}"
+        <div><a th:href = "@{'/admin/movie/' + ${movie.id}}"
                 th:text = "${movie.title}">Up!</a></div>
       </li>
     </ul>
@@ -25,7 +25,7 @@
     <div>Starred Movies</div>
     <ul>
       <li th:each = "movie : ${artist.starredMovies}">
-        <div><a th:href = "@{'/movie/' + ${movie.id}}"
+        <div><a th:href = "@{'/admin/movie/' + ${movie.id}}"
                 th:text = "${movie.title}">Up!</a></div>
       </li>
     </ul>

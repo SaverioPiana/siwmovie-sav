@@ -6,6 +6,7 @@
 </head>
 <body>
   <h1>Admin Artists</h1>
+  <a href="/admin/formNewArtist">Add Artist</a>
   <div th:if = "${artists.isEmpty()}">Non ci sono artisti</div>
   <ul>
     <li th:each = "artist : ${artists}">

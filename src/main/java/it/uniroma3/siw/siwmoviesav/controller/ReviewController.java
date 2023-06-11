@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 
 @Controller
 public class ReviewController {
@@ -53,7 +52,7 @@ public class ReviewController {
         }
     }
     @GetMapping("/registered/removeOwnReview/{review_id}")
-    public String removeReview(@PathVariable("review_id") Long id,Model model){
+    public String removeOwnReview(@PathVariable("review_id") Long id, Model model){
         Review review = reviewService.findById(id);
         if(review == null ||
                 !userService.getCurrentUser().equals(review.getAuthor()))
@@ -61,5 +60,15 @@ public class ReviewController {
         Movie movie = review.getReviewedMovie();
         reviewService.remove(review);
         return "redirect:/movie/"+movie.getId();
+    }
+    //########### ADMIN #################
+    @GetMapping("/admin/removeReview/{review_id}")
+    public String removeReview(@PathVariable("review_id") Long id, Model model){
+        Review review = reviewService.findById(id);
+        if(review == null) return "/errors/reviewNotFoundError";
+
+        Movie movie = review.getReviewedMovie();
+        reviewService.remove(review);
+        return "redirect:/admin/movie/"+movie.getId();
     }
 }

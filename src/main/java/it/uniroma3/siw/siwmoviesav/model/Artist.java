@@ -16,7 +16,6 @@ public class Artist {
     private Long id;
     private String name;
     private String surname;
-    private String url_of_picture;
     private LocalDate dateOfBirth;
     private String picFilename;
     @OneToMany(mappedBy = "director")
@@ -75,14 +74,6 @@ public class Artist {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public String getUrl_of_picture() {
-        return url_of_picture;
-    }
-
-    public void setUrl_of_picture(String url_of_picture) {
-        this.url_of_picture = url_of_picture;
     }
 
     public LocalDate getDateOfBirth() {

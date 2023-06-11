@@ -10,7 +10,7 @@
   <div>All Artists:</div>
   <ul>
     <li th:each = "artist : ${artists}">
-      <a th:href = "@{'/setDirectorToMovie/' + ${movie.id} + '/' + ${artist.id}}"
+      <a th:href = "@{'/admin/setDirectorToMovie/' + ${movie.id} + '/' + ${artist.id}}"
         th:text = "${artist.name} + ' ' + ${artist.surname}"></a>
     </li>
   </ul>

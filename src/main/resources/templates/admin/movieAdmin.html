@@ -10,14 +10,18 @@
   <div th:if="${movie}">
   <h1 th:text="${movie.title}">Titolo film</h1>
       <div>Anno: <span th:text="'(' + ${movie.year} + ')'">2000</span></div>
-      <div>Director: <a th:if="${movie.director}" th:href = "@{'/artist/' + ${movie.director.id}}" th:text="${movie.director.name} + ' ' + ${movie.director.surname}"></a>
+      <div>Director: <a th:if="${movie.director}" th:href = "@{'/admin/artist/' + ${movie.director.id}}" th:text="${movie.director.name} + ' ' + ${movie.director.surname}"></a>
+          <span><a th:href="@{'/admin/selectDirectorToMovie/' + ${movie.id}}">   Edit Director</a></span>
       </div>
-      <span><img width="30%" th:src= "${movie.getPicPath()}"/></span>
-      <div><h4>Actors:</h4></div>
+      <img width="30%" th:src= "${movie.getPicPath()}"/>
+      <form th:action="@{'/admin/saveMovieImage/'+${movie.id}}" method="POST" enctype="multipart/form-data">
+          <span>Edit Image</span><input id="modifyImage" name="image" type="file" accept="image/*" onchange="form.submit()">
+      </form>
+      <div><h4>Actors:</h4><span><a th:href="@{'/admin/selectActorsToMovie/' + ${movie.id}}">   Edit Actors</a></span></div>
       <div th:unless="not ${movie.actors} or ${movie.actors.isEmpty()}">
           <ul>
               <li th:each = "actor: ${movie.actors}">
-                  <a th:href = "@{'/artist/' + ${actor.id}}"
+                  <a th:href = "@{'/admin/artist/' + ${actor.id}}"
                     th:text = "${actor.name} + ' ' + ${actor.surname}"></a>
               </li>
           </ul>
@@ -30,8 +34,8 @@
             <div><strong  th:text="${review.title}+ '  '"></strong><span th:text="${review.score}+ '    '"></span>
                 <span th:text="${review.getCreationDateTime()}"></span>
                 <p th:text="${review.content}"></p>
-                <div th:if="${review.author.equals(globalUser)}">
-                    <a th:href="@{'/registered/removeOwnReview/'+ ${review.id}}">Remove Review</a>
+                <div>
+                    <a th:href="@{'/admin/removeReview/'+ ${review.id}}">Remove Review</a>
                 </div>
             </div>
         </li>

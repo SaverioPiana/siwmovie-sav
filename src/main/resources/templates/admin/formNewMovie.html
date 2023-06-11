@@ -7,7 +7,7 @@
 <body>
   <div><a href="/"><img src="/images/SIWDb_logo.png" width="15%"/></a></div>
   <h1>Add Movie</h1>
-  <form th:action="@{/movie}" method="POST" th:object="${movie}">
+  <form th:action="@{/admin/movie}" method="POST" th:object="${movie}">
     <div>
       <p th:if = "${#fields.hasGlobalErrors()}" th:each = "err : ${#fields.globalErrors()}" th:text="${err}"></p>
     </div>
@@ -19,9 +19,6 @@
       Year: <span><input required type="text" th:field="${movie.year}"/></span>
       <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
     </div>
-    <form th:action="@{/admin/saveMovieImage}" method="POST" enctype="multipart/form-data">
-      <span>Edit Image</span><input id="modifyImage" name="image" type="file" accept="image/*" onchange="form.submit()">
-    </form>
     <div>
       <span><button type="submit">Confirm</button></span>
     </div>

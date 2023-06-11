@@ -91,6 +91,7 @@ public class MovieController {
         Movie movie = movieService.findById(id);
         if(movie == null) return "/errors/movieNotFoundError";
 
+        model.addAttribute("movie", movie);
         model.addAttribute("artists", artistService.findAll());
         return "selectActorsToMovie";
     }

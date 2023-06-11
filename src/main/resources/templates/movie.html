@@ -31,6 +31,9 @@
             <div><strong  th:text="${review.title}+ '  '"></strong><span th:text="${review.score}+ '    '"></span>
                 <span th:text="${review.getCreationDateTime()}"></span>
                 <p th:text="${review.content}"></p>
+                <div th:if="${review.author.equals(globalUser)}">
+                    <a th:href="@{'/registered/removeOwnReview/'+ ${review.id}}">Remove Review</a>
+                </div>
             </div>
         </li>
     </ul>

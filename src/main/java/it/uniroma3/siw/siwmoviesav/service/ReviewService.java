@@ -12,7 +12,16 @@ public class ReviewService {
     private ReviewRepository reviewRepository;
 
     @Transactional
-    public void createNewReview(Review review){
+    public void save(Review review){
         reviewRepository.save(review);
+    }
+
+    @Transactional
+    public void remove(Review review){
+        reviewRepository.delete(review);
+    }
+
+    public Review findById(Long id){
+        return reviewRepository.findById(id).orElse(null);
     }
 }

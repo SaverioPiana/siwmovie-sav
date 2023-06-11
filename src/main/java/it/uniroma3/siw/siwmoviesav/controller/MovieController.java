@@ -82,7 +82,7 @@ public class MovieController {
         if(movie == null) return "/errors/movieNotFoundError";
 
         movie.setDirector(director);
-        movieService.updateMovie(movie);
+        movieService.save(movie);
         model.addAttribute("movie", movie);
         return "movie";
     }
@@ -106,7 +106,7 @@ public class MovieController {
         if(movie == null) return "/errors/movieNotFoundError";
 
         movie.getActors().add(actor);
-        movieService.updateMovie(movie);
+        movieService.save(movie);
         model.addAttribute("movie", movie);
         return selectActorsToMovie(movie_id, model);
     }
@@ -121,7 +121,7 @@ public class MovieController {
         if(movie == null) return "/errors/movieNotFoundError";
 
         movie.getActors().remove(actor);
-        movieService.updateMovie(movie);
+        movieService.save(movie);
         model.addAttribute("movie", movie);
         return selectActorsToMovie(movie_id, model);
     }

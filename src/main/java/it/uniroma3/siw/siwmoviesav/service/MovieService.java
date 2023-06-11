@@ -16,7 +16,7 @@ public class MovieService {
         movieRepository.save(movie);
     }
     @Transactional
-    public void updateMovie(Movie movie){
+    public void save(Movie movie){
         movieRepository.save(movie);
     }
     public boolean alreadyExists(Movie movie){

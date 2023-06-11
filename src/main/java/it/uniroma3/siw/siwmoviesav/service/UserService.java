@@ -22,7 +22,6 @@ public class UserService {
     protected UserRepository userRepository;
     @Autowired
     protected CredentialsService credentialsService;
-    private final Integer maxReviewPerUserPerMovie = 1;
 
     /**
      * This method retrieves a User from the DB based on its ID.
@@ -46,7 +45,7 @@ public class UserService {
         }
         return user;
     }
-    //check if a user can review a movie
+    //check if a user can review a movie (max 1 review per movie)
     public boolean canReview(User user, Movie movie){
         for (Review review : user.getReviews()) {
             if(review.getReviewedMovie().equals(movie)) return false;
@@ -65,7 +64,7 @@ public class UserService {
      *                              as the passed User already exists in the DB
      */
     @Transactional
-    public User saveUser(User user) {
+    public User save(User user) {
         return this.userRepository.save(user);
     }
 

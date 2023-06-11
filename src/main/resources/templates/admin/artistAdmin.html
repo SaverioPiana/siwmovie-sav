@@ -7,6 +7,10 @@
 <body>
   <h1 th:text = "${artist.name} + ${artist.surname}"></h1>
   <h3 th:text = "${artist.getDateOfBirthFormatted()}"></h3>
+  <form th:action="@{'/admin/saveArtistImage/'+ ${artist.id}}" method="POST" enctype="multipart/form-data">
+    <label for="modifyImage">Modifica</label>
+    <input id="modifyImage" name="image" type="file" accept="image/*" onchange="form.submit()">
+  </form>
   <img th:src="${artist.getPicPath}" width="10%">
   <div th:unless = "${artist.directedMovies} or ${artist.directedMovies.isEmpty()}">
     <div>Directed Movies</div>

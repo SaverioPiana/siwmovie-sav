@@ -80,7 +80,7 @@ public class AuthenticationController {
         credentialsValidator.validate(credentials, credentialsBindingResult);
         // se globalUser e credential hanno entrambi contenuti validi, memorizza User e the Credentials nel DB
         if(!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
-            userService.saveUser(user);
+            userService.save(user);
             credentials.setUser(user);
             credentialsService.saveCredentials(credentials);
             model.addAttribute("user", user);

@@ -12,16 +12,13 @@ public class ArtistService {
     ArtistRepository artistRepository;
 
     @Transactional
-    public void createNewArtist(Artist artist){
+    public void save(Artist artist){
         artistRepository.save(artist);
     }
-    @Transactional
-    public void updateArtist(Artist artist){
-        artistRepository.save(artist);
-    }
-   public boolean alreadyExists(Artist artist){
+
+    public boolean alreadyExists(Artist artist){
         return artistRepository.existsByNameAndSurname(artist.getName(), artist.getSurname());
-   }
+    }
     public Artist findById(Long id){
         return artistRepository.findById(id).orElse(null);
     }

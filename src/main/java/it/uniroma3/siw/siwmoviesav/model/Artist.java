@@ -18,6 +18,7 @@ public class Artist {
     private String surname;
     private String url_of_picture;
     private LocalDate dateOfBirth;
+    private String picFilename;
     @OneToMany(mappedBy = "director")
     private Set<Movie> directedMovies;
     @ManyToMany(mappedBy = "actors")
@@ -32,6 +33,19 @@ public class Artist {
         if (o == null || getClass() != o.getClass()) return false;
         Artist artist = (Artist) o;
         return Objects.equals(name, artist.name) && Objects.equals(surname, artist.surname);
+    }
+    public String getPicPath(){
+        if(picFilename != null) return "/upload/images/artist_pics/" + this.getId() + "/"
+                +this.getPicFilename();
+        return "/images/default_profile_pic.png";
+    }
+
+    public String getPicFilename() {
+        return picFilename;
+    }
+
+    public void setPicFilename(String picFilename) {
+        this.picFilename = picFilename;
     }
 
     @Override

@@ -25,7 +25,7 @@
             <label for="floatingInputContent">Content</label>
         </div>
         <div class="form-floating">
-            <input type="number" class="my-3 form-control text-secondary" id="floatingInputScore" placeholder="Score"
+            <input type="number" class="my-3 form-control text-secondary" required id="floatingInputScore" placeholder="Score"
                    th:field="${review.score}"><span th:if="${#fields.hasErrors('score')}" th:errors="${review.score}" th:style="'color:red'"></span>
             <label for="floatingInputScore">Score (-/100) </label>
         </div>

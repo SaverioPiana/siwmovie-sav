@@ -2,27 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-  <title>New Movie</title>
+  <link th:replace="fragments/base :: bootsrap">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
+  <title>Add Movie</title>
 </head>
 <body>
-  <div><a href="/"><img src="/images/SIWDb_logo.png" width="15%"/></a></div>
-  <h1>Add Movie</h1>
+<div th:replace="fragments/base :: header"></div>
+<main class="form-lr w-100 m-auto">
   <form th:action="@{/admin/movie}" method="POST" th:object="${movie}">
+    <h1 class="h3 mb-3 fw-normal text-light text-center">Add New Movie</h1>
     <div>
       <p th:if = "${#fields.hasGlobalErrors()}" th:each = "err : ${#fields.globalErrors()}" th:text="${err}"></p>
     </div>
-    <div>
-      Title: <span><input required type="text" th:field="${movie.title}"/></span>
-      <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+    <div class="form-floating">
+      <input type="text" class="my-3 form-control text-secondary" required id="floatingInputTitle" placeholder="title"
+             th:field="${movie.title}"><span th:if="${#fields.hasErrors('title')}" th:errors="${movie.title}" th:style="'color:red'"></span>
+      <label for="floatingInputTitle">Title</label>
     </div>
-    <div>
-      Year: <span><input required type="text" th:field="${movie.year}"/></span>
-      <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
+    <div class="form-floating">
+      <input type="text" class="my-3 form-control text-secondary" id="floatingInputYear" placeholder="Year"
+             th:field="${movie.year}"><span th:if="${#fields.hasErrors('year')}" th:errors="${movie.year}" th:style="'color:red'"></span>
+      <label for="floatingInputYear">Year </label>
     </div>
-    <div>
-      <span><button type="submit">Confirm</button></span>
-    </div>
+    <button class="btn btn-outline-light w-100 py-2 my-3" type="submit">Confirm</button>
   </form>
-
+</main>
 </body>
 </html>

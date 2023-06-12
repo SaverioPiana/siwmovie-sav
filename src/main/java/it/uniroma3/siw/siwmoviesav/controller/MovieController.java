@@ -86,7 +86,7 @@ public class MovieController {
         if(movie == null) return "/errors/movieNotFoundError";
 
         model.addAttribute("movie", movie);
-        model.addAttribute("artists", artistService.findAll());
+        model.addAttribute("artists", artistService.findDirectorsToSel(movie));
         return "/admin/selectDirectorToMovie";
     }
     @GetMapping("/admin/setDirectorToMovie/{movie_id}/{artist_id}")
@@ -110,7 +110,7 @@ public class MovieController {
         if(movie == null) return "/errors/movieNotFoundError";
 
         model.addAttribute("movie", movie);
-        model.addAttribute("artists", artistService.findAll());
+        model.addAttribute("artists", artistService.findActorsToSel(movie));
         return "/admin/selectActorsToMovie";
     }
 

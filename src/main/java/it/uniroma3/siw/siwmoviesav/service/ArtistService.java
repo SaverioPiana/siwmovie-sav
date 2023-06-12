@@ -1,6 +1,7 @@
 package it.uniroma3.siw.siwmoviesav.service;
 
 import it.uniroma3.siw.siwmoviesav.model.Artist;
+import it.uniroma3.siw.siwmoviesav.model.Movie;
 import it.uniroma3.siw.siwmoviesav.repository.ArtistRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,11 @@ public class ArtistService {
     }
     public Iterable<Artist> findAll(){
         return artistRepository.findAll();
+    }
+    public Iterable<Artist> findDirectorsToSel(Movie movie){
+        return artistRepository.findAllByDirectedMoviesIsNotContaining(movie);
+    }
+    public Iterable<Artist> findActorsToSel(Movie movie){
+        return artistRepository.findAllByStarredMoviesIsNotContaining(movie);
     }
 }

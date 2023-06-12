@@ -50,6 +50,17 @@ public class UserController {
         userService.save(user);
         return "redirect:/movie";
     }
+    @GetMapping("/registered/removeToMyList/{id}")
+    public String removeToWatchlist(@PathVariable("id") Long id,Model model  ){
+        Movie movie = movieService.findById(id);
+        if (movie==null) return "errors/movieNotFoundError";
+
+        User user = userService.getCurrentUser();
+        user.getWatchList().remove(movie);
+        userService.save(user);
+        return "redirect:/movie";
+    }
+    //######ADMIN########
 
     @GetMapping("/admin/addToMyList/{id}")
     public String addToWatchlistAdmin(@PathVariable("id") Long id,Model model  ){
@@ -58,6 +69,16 @@ public class UserController {
 
         User user = userService.getCurrentUser();
         user.getWatchList().add(movie);
+        userService.save(user);
+        return "redirect:/admin/movie";
+    }
+    @GetMapping("/admin/removeToMyList/{id}")
+    public String removeToWatchlistAdmin(@PathVariable("id") Long id,Model model  ){
+        Movie movie = movieService.findById(id);
+        if (movie==null) return "errors/movieNotFoundError";
+
+        User user = userService.getCurrentUser();
+        user.getWatchList().remove(movie);
         userService.save(user);
         return "redirect:/admin/movie";
     }

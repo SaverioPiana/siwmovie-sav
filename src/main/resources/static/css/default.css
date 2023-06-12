@@ -39,7 +39,7 @@ h1 {
 .hover-dark:hover{
     opacity: 70%;
 }
-.form-signin {
+.form-lr {
     max-width: 330px;
     padding: 1rem;
 }

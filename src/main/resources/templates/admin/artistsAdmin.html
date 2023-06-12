@@ -2,18 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link th:replace="fragments/base :: bootsrap">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
     <title>Artists</title>
 </head>
 <body>
-  <h1>Admin Artists</h1>
-  <a href="/admin/formNewArtist">Add Artist</a>
-  <div th:if = "${artists.isEmpty()}">Non ci sono artisti</div>
-  <ul>
-    <li th:each = "artist : ${artists}">
-        <a th:href = "@{'/admin/artist/' + ${artist.id} }"
-           th:text = "${artist.name} + ${artist.surname}"></a>
-    </li>
-  </ul>
-
+<div th:replace="fragments/base :: header"></div>
+<ul class="list-group px-5 mx-auto">
+<li class="bg-black list-group-item d-flex justify-content-center align-items-center">
+    <a class="ps-2 text-center link-light link-underline-opacity-0 link-underline-opacity-100-hover"
+       href="/admin/formNewArtist">## Add Artist ##</a>
+</li>
+<li th:each="artist : ${artists}" class="bg-dark list-group-item d-flex justify-content-between align-items-start">
+    <a class="link-underline-opacity-0 link-light"
+       th:href="@{'/admin/artist' + '/' + ${artist.id}}">
+        <div class="ms-2 me-auto">
+            <div class="fw-bold" th:text="${artist.name}+ ' ' + ${artist.surname}">Nome Cognome</div>
+            <div th:text="${artist.dateOfBirthFormatted}">dob</div>
+        </div>
+    </a>
+   </li>
+</ul>
+<div th:if = "${artists.isEmpty()}">Non ci sono artisti</div>
 </body>
 </html>

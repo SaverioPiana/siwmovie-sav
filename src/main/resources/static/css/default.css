@@ -1,0 +1,13 @@
+body {
+    background-color:#212529;
+    height: 100vh;
+}
+h1 {
+    color: whitesmoke;
+}
+.w-99{
+    width: 99%!important;
+}
+.w-fit-content{
+    width: fit-content;
+}

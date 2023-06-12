@@ -1,19 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-    <title>Movies</title>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+  <link th:replace="fragments/base :: bootsrap">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
+  <title>Movies</title>
 </head>
 <body>
-  <div><a href="/"><img src="/images/SIWDb_logo.png" width="15%"/></a></div>
-  <h1>Film</h1>
-  <div><a href="/admin/formNewMovie">Add Movie</a></div>
-  <div th:if="${movies.isEmpty()}">Non ci sono film nel sistema</div>
-  <ul>
-    <li th:each="movie : ${movies}">
-      <a th:href="@{'/admin/movie' + '/' + ${movie.id}}"
-         th:text="${movie.title} + ' (' + ${movie.year} + ')'">Up! (2000)</a>
-    </li>
-  </ul>
+<div th:replace="fragments/base :: header"></div>
+<ul class="list-group px-5">
+  <li class="bg-black list-group-item d-flex justify-content-between align-items-start">
+    <a class="ps-2 text-center link-light link-underline-opacity-0 link-underline-opacity-100-hover"
+       href="/admin/formNewMovie">## Add Movie ##</a>
+  </li>
+  <li th:each="movie : ${movies}" class="bg-dark list-group-item d-flex justify-content-between align-items-start">
+    <a class="link-underline-opacity-0 link-light"
+       th:href="@{'/admin/movie' + '/' + ${movie.id}}">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold" th:text="${movie.title}">titolo film</div>
+        <div th:text="${movie.director}">Director</div>
+        <div th:text="${movie.year}">Year</div>
+      </div>
+    </a>
+    <span class="badge bg-primary rounded-pill align-self-center" th:text="${movie.getAvgReviews()} + '/100'">score</span>
+  </li>
+</ul>
+<div th:if="${movies.isEmpty()}">Non ci sono film nel sistema</div>
 </body>
 </html>

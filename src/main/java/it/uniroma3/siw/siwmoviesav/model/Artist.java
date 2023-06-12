@@ -33,6 +33,11 @@ public class Artist {
         Artist artist = (Artist) o;
         return Objects.equals(name, artist.name) && Objects.equals(surname, artist.surname);
     }
+    @Override
+    public String toString(){
+        if(this.name == null) return "---";
+        return this.getName() + " " + this.getSurname();
+    }
     public String getPicPath(){
         if(picFilename != null) return "/upload/images/artist_pics/" + this.getId() + "/"
                 +this.getPicFilename();

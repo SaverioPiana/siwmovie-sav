@@ -2,40 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link th:replace="fragments/base :: bootsrap">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
     <title>Movie</title>
 </head>
 <body>
-<div><a href="/"><img src="/images/SIWDb_logo.png" width="15%"/></a></div>
+<div th:replace="fragments/base :: header"></div>
+
 <div th:unless="${movie}">Non esiste</div>
-  <div th:if="${movie}">
-  <h1 th:text="${movie.title}">Titolo film</h1>
-      <div>Anno: <span th:text="'(' + ${movie.year} + ')'">2000</span></div>
-      <div>Director: <a th:if="${movie.director}" th:href = "@{'/artist/' + ${movie.director.id}}" th:text="${movie.director.name} + ' ' + ${movie.director.surname}"></a>
-      </div>
-      <span><img width="30%" th:src= "${movie.getPicPath()}"/></span>
-      <div><h4>Actors:</h4></div>
-      <div th:unless="not ${movie.actors} or ${movie.actors.isEmpty()}">
-          <ul>
-              <li th:each = "actor: ${movie.actors}">
-                  <a th:href = "@{'/artist/' + ${actor.id}}"
-                    th:text = "${actor.name} + ' ' + ${actor.surname}"></a>
-              </li>
-          </ul>
-      </div>
-  </div>
-<a th:if="${userAuthDetails}" th:href="${'/registered/formNewReview/'+movie.getId()}">Add Review</a>
-<div th:if="${movie.reviews}">
-    <ul>
-        <li th:each ="review : ${movie.reviews}">
-            <div><strong  th:text="${review.title}+ '  '"></strong><span th:text="${review.score}+ '    '"></span>
-                <span th:text="${review.getCreationDateTime()}"></span>
-                <p th:text="${review.content}"></p>
-                <div th:if="${review.author.equals(globalUser)}">
-                    <a th:href="@{'/registered/removeOwnReview/'+ ${review.id}}">Remove Review</a>
+<div class="container" th:if="${movie}">
+    <div class="row">
+        <div class="col-5">
+            <div class="row"><h1 class="text-light" th:text="${movie.title}"></h1></div>
+            <div class="row"><span class="text-secondary" th:text="${movie.year}"></span></div>
+            <div class="row">
+                <a class="anchor-link link-light col-auto link-opacity-25 link-opacity-100-hover link-underline-opacity-0"
+                   th:if="${movie.director}" th:href = "@{'/artist/' + ${movie.director.id}}" th:text="${movie.director.name} + ' ' + ${movie.director.surname}"></a>
+            </div>
+            <div class="row">
+                    <span class="cursor-pointer text-light">
+                        <img class="img-fluid my-2 rounded-5 border border-2 border-primary px-0 shadow z-0 hover-dark" th:src= "${movie.getPicPath()}"/>
+                    </span>
+            </div>
+            <div class="row">
+                <h4 class="col-auto text-light">Actors</h4>
+            </div>
+            <div class="row">
+                <div th:unless="not ${movie.actors} or ${movie.actors.isEmpty()}">
+                    <ul class="list-group">
+                        <li class="list-group-item bg-dark" th:each = "actor: ${movie.actors}">
+                            <a class="anchor-link link-light link-opacity-50 link-opacity-100-hover link-underline-opacity-0" th:href = "@{'/artist/' + ${actor.id}}"
+                               th:text = "${actor.name} + ' ' + ${actor.surname}"></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </li>
-    </ul>
+        </div>
+        <div class="col-7">
+            <div class="row justify-content-end">
+                <a class="text-end link-light link-opacity-25 link-opacity-100-hover link-underline-opacity-0"
+                   th:if="${userAuthDetails}" th:href="${'/registered/formNewReview/'+movie.getId()}">------
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-file-plus" viewBox="0 0 16 16">
+                        <path d="M8.5 6a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V10a.5.5 0 0 0 1 0V8.5H10a.5.5 0 0 0 0-1H8.5V6z"/>
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="row">
+                <div th:if="${movie.reviews}">
+                    <ul>
+                        <li th:each ="review : ${movie.reviews}">
+                            <div class="toast fade show mx-3" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header">
+                                    <img th:src="${review.author.getPicPath()}" class="rounded me-2" width="40" height="40" alt="ProfilePic">
+                                    <strong class="mr-auto" th:text="${review.title}">Title</strong>
+                                    <small class="text-muted me-auto" th:text="${review.getCreationDateTimeFormatted()}">time</small>
+                                    <span class="badge me-2 bg-primary rounded-pill align-self-center" th:text="${review.score} + '/100'">score</span>
+                                </div>
+                                <div class="toast-body" th:text="${review.content}">
+                                    Review Content
+                                </div>
+                            </div>
+                            <div>
+                                <a th:if="${review.author.equals(globalUser)}" class="mx-5 anchor-link link-light link-opacity-50 link-opacity-100-hover link-underline-opacity-0" th:href="@{'/registered/removeOwnReview/'+ ${review.id}}">^Remove Own Review^</a>
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

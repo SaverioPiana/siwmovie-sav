@@ -2,26 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+  <link th:replace="fragments/base :: bootsrap">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
   <title>Admin Movies Database</title>
 </head>
 <body>
-<header>
-  <div th:if="${userAuthDetails}">
-    <a th:text="${userAuthDetails.username}" href="/registered/profile"></a>
-    <a href="/logout">Logout</a>
+<div th:replace="fragments/base :: header"></div>
+<div class="container px-5 h-75 w-fit-content gradient-blue-dark rounded-5 border border-light">
+  <div class="row h-100 mx-sm-5">
+    <div class="my-auto py-3 bg-dark border rounded-2 d-flex flex-column aligns-items-center justify-content-center">
+      <div class="row">
+        <h1 class="p-2 text-center">Access the archive</h1>
+      </div>
+      <div class="row w-99 my-1 justify-content-center align-self-center">
+        <button type = "button" class="p-2 text-center btn btn-outline-light"
+                onclick="location.href='/admin/movie'">Movies</button>
+      </div>
+      <div class="row w-99 my-1 justify-content-center align-self-center">
+        <button type = "button" class="p-2 text-center btn btn-outline-light"
+                onclick="location.href='/admin/artist'">Artists</button>
+      </div>
+    </div>
   </div>
-  <div th:unless="${userAuthDetails}">
-    <a href="/login">Login</a>
-  </div>
-</header>
-
-<div><img src="/images/SIWDb_logo.png" width="15%" /></div>
-<h1>Access the archive</h1>
-<div>
-  <a href="/admin/movie">Movies</a>
-</div>
-<div>
-  <a href="/admin/artist">Artists</a>
 </div>
 </body>
 </html>

@@ -11,3 +11,6 @@ h1 {
 .w-fit-content{
     width: fit-content;
 }
+.gradient-blue-dark{
+    background-image: linear-gradient(#1870c9, #1c3248, #1c232a, #212529);
+}

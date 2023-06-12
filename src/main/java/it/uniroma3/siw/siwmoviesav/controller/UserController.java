@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,8 @@ import java.util.Objects;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserService movieService;
 
     @GetMapping("/registered/profile")
     public String showProfilePage(Model model){
@@ -35,4 +38,6 @@ public class UserController {
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
     return showProfilePage(model);
     }
+    @GetMapping("/registered/addToMyList/{id}")
+    public String addToMylist(@PathVariable("id") Long id,)
 }

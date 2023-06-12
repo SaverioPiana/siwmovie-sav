@@ -45,14 +45,18 @@ public class Movie {
                 +this.getPicFilename();
         return "/images/default_profile_pic.png";
     }
-    public int getAvgReviews(){
+    public String getAvgReviews(){
         int sum=0;
-        if (reviews.size()==0) return 0;
+        if (reviews.size()==0) return "00";
         for (Review r:
              reviews) {
             sum += r.getScore();
         }
-        return sum/reviews.size();
+        int res = sum/reviews.size();
+
+        if(res<10) return "0"+res;
+
+        return ""+res;
     }
     public Set<Review> getReviews() {
         return reviews;

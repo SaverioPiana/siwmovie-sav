@@ -1,7 +1,9 @@
 package it.uniroma3.siw.siwmoviesav.controller;
 
 import it.uniroma3.siw.siwmoviesav.controller.util.FileUploadUtil;
+import it.uniroma3.siw.siwmoviesav.model.Movie;
 import it.uniroma3.siw.siwmoviesav.model.User;
+import it.uniroma3.siw.siwmoviesav.service.MovieService;
 import it.uniroma3.siw.siwmoviesav.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +23,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private UserService movieService;
+    private MovieService movieService;
 
     @GetMapping("/registered/profile")
     public String showProfilePage(Model model){
@@ -39,5 +41,24 @@ public class UserController {
     return showProfilePage(model);
     }
     @GetMapping("/registered/addToMyList/{id}")
-    public String addToMylist(@PathVariable("id") Long id,)
+    public String addToWatchlist(@PathVariable("id") Long id,Model model  ){
+        Movie movie = movieService.findById(id);
+        if (movie==null) return "errors/movieNotFoundError";
+
+        User user = userService.getCurrentUser();
+        user.getWatchList().add(movie);
+        userService.save(user);
+        return "redirect:/movie";
+    }
+
+    @GetMapping("/admin/addToMyList/{id}")
+    public String addToWatchlistAdmin(@PathVariable("id") Long id,Model model  ){
+        Movie movie = movieService.findById(id);
+        if (movie==null) return "errors/movieNotFoundError";
+
+        User user = userService.getCurrentUser();
+        user.getWatchList().add(movie);
+        userService.save(user);
+        return "redirect:/admin/movie";
+    }
 }

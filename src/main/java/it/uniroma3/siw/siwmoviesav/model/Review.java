@@ -94,7 +94,7 @@ public class Review {
         return creationDateTime;
     }
     public String getCreationDateTimeFormatted() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy --- HH:mm");
         return this.creationDateTime.format(formatter);
     }
 

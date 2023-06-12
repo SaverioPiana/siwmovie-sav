@@ -32,7 +32,7 @@
     <ul>
         <li th:each ="review : ${movie.reviews}">
             <div><strong  th:text="${review.title}+ '  '"></strong><span th:text="${review.score}+ '    '"></span>
-                <span th:text="${review.getCreationDateTime()}"></span>
+                <span th:text="${review.getCreationDateTimeFormatted()}"></span>
                 <p th:text="${review.content}"></p>
                 <div>
                     <a th:href="@{'/admin/removeReview/'+ ${review.id}}">Remove Review</a>

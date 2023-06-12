@@ -31,7 +31,7 @@
                     <ul class="list-group">
                         <li class="list-group-item bg-dark" th:each = "movie : ${globalUser.watchList}">
                             <a class="anchor-link link-light link-opacity-50 link-opacity-100-hover link-underline-opacity-0"
-                               th:href = "@{'/admin/movie/' + ${movie.id}}"
+                               th:href = "@{'/movie/' + ${movie.id}}"
                                th:text = "${movie.title} + ' '">
                                 <span class="mx-3 text-secondary" th:text = "${movie.year}"></span>
                             </a>

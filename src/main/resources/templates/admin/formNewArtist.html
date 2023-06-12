@@ -2,30 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-    <title>New Artist</title>
+    <link th:replace="fragments/base :: bootsrap">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
+    <title>Add Artist</title>
 </head>
 <body>
-<div><a href="/"><img src="/images/SIWDb_logo.png" width="15%"/></a></div>
-<h1>Add Artist</h1>
-<form th:action="@{/admin/artist}" method="POST" th:object="${artist}">
-    <div>
-        <p th:if = "${#fields.hasGlobalErrors()}" th:each = "err : ${#fields.globalErrors()}" th:text="${err}"></p>
-    </div>
-    <div>
-        Name: <span><input required type="text" th:field="${artist.name}"/></span>
-        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-    </div>
-    <div>
-        Surname: <span><input required type="text" th:field="${artist.surname}"/></span>
-        <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
-    </div>
-    <div>
-        Date of Birth: <span><input type="date" th:field="${artist.dateOfBirth}" /></span>
-    </div>
-    <div>
-        <span><button type="submit">Confirm</button></span>
-    </div>
-</form>
-
+<div th:replace="fragments/base :: header"></div>
+<main class="form-lr w-100 m-auto">
+    <form th:action="@{/admin/artist}" method="POST" th:object="${artist}">
+        <h1 class="h3 mb-3 fw-normal text-light text-center">Add New Artist</h1>
+        <div>
+            <p th:if = "${#fields.hasGlobalErrors()}" th:each = "err : ${#fields.globalErrors()}" th:text="${err}"></p>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="my-3 form-control text-secondary" required id="floatingInputName" placeholder="name"
+                   th:field="${artist.name}"><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:style="'color:red'"></span>
+            <label for="floatingInputName">Name</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="my-3 form-control text-secondary" id="floatingInputSurname" placeholder="Surname"
+                   th:field="${artist.surname}"><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" th:style="'color:red'"></span>
+            <label for="floatingInputSurname">Surname</label>
+        </div>
+        <div class="form-floating">
+            <input type="date" class="my-3 form-control text-secondary" required id="floatingInputDOB" placeholder="Date"
+                   th:field="${artist.dateOfBirth}">
+            <label for="floatingInputDOB">Date Of Birth</label>
+        </div>
+        <button class="btn btn-outline-light w-100 py-2 my-3" type="submit">Confirm</button>
+    </form>
+</main>
 </body>
 </html>

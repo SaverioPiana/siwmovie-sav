@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Entity
@@ -91,6 +92,10 @@ public class Review {
 
     public LocalDateTime getCreationDateTime() {
         return creationDateTime;
+    }
+    public String getCreationDateTimeFormatted() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return this.creationDateTime.format(formatter);
     }
 
     public void setCreationDateTime(LocalDateTime date) {

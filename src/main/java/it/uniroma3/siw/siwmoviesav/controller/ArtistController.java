@@ -36,7 +36,7 @@ public class ArtistController {
     @GetMapping("/admin/formNewArtist")
     public String formNewArtist(Model model){
         model.addAttribute("artist", new Artist());
-        return "/admin/formNewArtist";
+        return "admin/formNewArtist";
     }
     @PostMapping("/admin/artist")
     public String newArtist(@Valid @ModelAttribute("artist") Artist artist, BindingResult bindingResult, Model model){
@@ -44,9 +44,9 @@ public class ArtistController {
         if(!bindingResult.hasErrors()){
             this.artistService.save(artist);
             model.addAttribute("movie", artist);
-            return "/admin/artistAdmin";
+            return "admin/artistAdmin";
         }else{
-            return "/admin/formNewArtist";
+            return "admin/formNewArtist";
         }
     }
     @GetMapping("/admin/artist")

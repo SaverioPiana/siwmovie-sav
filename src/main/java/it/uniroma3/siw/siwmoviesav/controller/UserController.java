@@ -27,7 +27,7 @@ public class UserController {
 
     @GetMapping("/registered/profile")
     public String showProfilePage(Model model){
-        return "/registered/profile";
+        return "registered/profile";
     }
     @PostMapping("/registered/saveProfileImage")
     public String saveProfileImage(@RequestParam("image")MultipartFile multipartFile, Model model) throws IOException{

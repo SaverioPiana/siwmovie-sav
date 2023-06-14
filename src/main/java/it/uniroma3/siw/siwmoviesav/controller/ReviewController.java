@@ -30,16 +30,16 @@ public class ReviewController {
     public String formNewReview(@PathVariable("movie_id") Long movie_id,Model model){
         model.addAttribute("review", new Review());
         model.addAttribute("movie_id", movie_id);
-        return "/registered/formNewReview";
+        return "registered/formNewReview";
     }
     @PostMapping("/registered/review/{movie_id}")
     public String newMovie(@PathVariable("movie_id") Long movie_id,@Valid @ModelAttribute("review") Review review, BindingResult bindingResult, Model model){
         if(!userService.canReview(userService.getCurrentUser(), movieService.findById(movie_id))){
-            return "/errors/cannotCreateMoreReview";
+            return "errors/cannotCreateMoreReview";
         }
         if(!bindingResult.hasErrors()){
             Movie movie = movieService.findById(movie_id);
-            if(movie == null) return "/errors/movieNotFoundError";
+            if(movie == null) return "errors/movieNotFoundError";
 
             review.setReviewedMovie(movie);
             review.setAuthor(userService.getCurrentUser());
@@ -48,7 +48,7 @@ public class ReviewController {
             model.addAttribute("review", review);
             return "redirect:/movie/" + movie_id;
         }else{
-            return "/registered/formNewReview";
+            return "registered/formNewReview";
         }
     }
     @GetMapping("/registered/removeOwnReview/{review_id}")
@@ -56,7 +56,7 @@ public class ReviewController {
         Review review = reviewService.findById(id);
         if(review == null ||
                 !userService.getCurrentUser().equals(review.getAuthor()))
-            return "/errors/reviewNotFoundError";
+            return "errors/reviewNotFoundError";
         Movie movie = review.getReviewedMovie();
         reviewService.remove(review);
         return "redirect:/movie/"+movie.getId();
@@ -65,7 +65,7 @@ public class ReviewController {
     @GetMapping("/admin/removeReview/{review_id}")
     public String removeReview(@PathVariable("review_id") Long id, Model model){
         Review review = reviewService.findById(id);
-        if(review == null) return "/errors/reviewNotFoundError";
+        if(review == null) return "errors/reviewNotFoundError";
 
         Movie movie = review.getReviewedMovie();
         reviewService.remove(review);

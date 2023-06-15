@@ -27,7 +27,7 @@
             <div class="row">
                 <h4 class="col-auto text-light">Actors</h4>
             </div>
-            <div class="row">
+            <div class="row mb-4">
                 <div th:unless="not ${movie.actors} or ${movie.actors.isEmpty()}">
                     <ul class="list-group">
                         <li class="list-group-item bg-dark" th:each = "actor: ${movie.actors}">
@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="col-md-7 col-sm-12">
-            <div class="row justify-content-end">
+            <div class="row justify-content-end mb-2">
                 <a class="text-end link-light link-opacity-25 link-opacity-100-hover link-underline-opacity-0"
                    th:if="${userAuthDetails}" th:href="${'/registered/formNewReview/'+movie.getId()}">------
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-file-plus" viewBox="0 0 16 16">

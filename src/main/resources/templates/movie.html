@@ -12,7 +12,7 @@
 <div th:unless="${movie}">Non esiste</div>
 <div class="container" th:if="${movie}">
     <div class="row">
-        <div class="col-5">
+        <div class="col-md-5 col-sm-12">
             <div class="row"><h1 class="text-light" th:text="${movie.title}"></h1></div>
             <div class="row"><span class="text-secondary" th:text="${movie.year}"></span></div>
             <div class="row">
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-7">
+        <div class="col-md-7 col-sm-12">
             <div class="row justify-content-end">
                 <a class="text-end link-light link-opacity-25 link-opacity-100-hover link-underline-opacity-0"
                    th:if="${userAuthDetails}" th:href="${'/registered/formNewReview/'+movie.getId()}">------
@@ -52,8 +52,8 @@
                 <div th:if="${movie.reviews}">
                     <ul>
                         <li th:each ="review : ${movie.reviews}">
-                            <div class="toast fade show mx-3" role="alert" aria-live="assertive" aria-atomic="true">
-                                <div class="toast-header">
+                            <div class="toast fade show mx-1" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header flex-wrap">
                                     <img th:src="${review.author.getPicPath()}" class="rounded me-2" width="40" height="40" alt="ProfilePic">
                                     <strong class="mr-auto" th:text="${review.title}">Title</strong>
                                     <small class="text-muted me-auto" th:text="${review.getCreationDateTimeFormatted()}">time</small>

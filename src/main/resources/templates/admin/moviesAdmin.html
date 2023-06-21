@@ -4,16 +4,18 @@
   <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
   <link th:replace="fragments/base :: bootsrap">
   <link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
+  <script src="/js/searchFunc.js"></script>
   <title>Movies Admin</title>
 </head>
 <body>
-<div th:replace="fragments/base :: header"></div>
-<ul class="list-group px-5 mx-auto">
-  <li class="bg-black list-group-item d-flex justify-content-center align-items-start">
+<div th:replace="fragments/movieSearchHeader :: moviesHeader"></div>
+<ul id="listMovies" class="list-group px-5 mx-auto">
+  <li id="listHeader" class="bg-black list-group-item d-flex justify-content-center align-items-start">
     <a class="ps-2 text-center link-light link-underline-opacity-0 link-underline-opacity-100-hover"
        href="/admin/formNewMovie">## Add Movie ##</a>
   </li>
-  <li th:each="movie : ${movies}" class="bg-dark list-group-item d-flex justify-content-between align-items-start">
+  <li th:each="movie : ${movies}" class="bg-dark list-group-item d-flex justify-content-between align-items-start"
+      th:data-title="${movie.title}">
     <a class="link-underline-opacity-0 link-light"
        th:href="@{'/admin/movie' + '/' + ${movie.id}}">
       <div class="ms-2 me-auto">

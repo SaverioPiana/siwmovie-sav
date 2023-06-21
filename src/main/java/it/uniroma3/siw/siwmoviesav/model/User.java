@@ -20,7 +20,7 @@ public class User {
     @NotBlank
     private String email;
     private String picFilename;
-    @OneToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<Movie> watchList;
     @OneToMany(mappedBy = "author")
     private Set<Review> reviews;

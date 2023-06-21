@@ -53,7 +53,7 @@ public class MovieController {
     @GetMapping("/admin/movie")
     public String showMoviesAdmin(Model model){
         model.addAttribute("movies", this.movieService.findAll());
-        return "/admin/moviesAdmin";
+        return "admin/moviesAdmin";
     }
     @PostMapping("/admin/movie")
     public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model){
@@ -61,57 +61,57 @@ public class MovieController {
         if(!bindingResult.hasErrors()){
             this.movieService.createNewMovie(movie);
             model.addAttribute("movie", movie);
-            return "/admin/movieAdmin";
+            return "admin/movieAdmin";
         }else{
-            return "/admin/formNewMovie";
+            return "admin/formNewMovie";
         }
     }
     @GetMapping("/admin/movie/{id}")
     public String getMovieAdmin(@PathVariable("id") Long id, Model model){
         Movie movie = movieService.findById(id);
-        if(movie == null) return "/errors/movieNotFoundError";
+        if(movie == null) return "errors/movieNotFoundError";
 
         model.addAttribute("movie", movie);
-        return "/admin/movieAdmin";
+        return "admin/movieAdmin";
     }
     @GetMapping("/admin/formNewMovie")
     public String formNewMovie(Model model){
         Movie movie =  new Movie();
         model.addAttribute("movie", movie);
-        return "/admin/formNewMovie";
+        return "admin/formNewMovie";
     }
     @GetMapping("/admin/selectDirectorToMovie/{id}")
     public String selectDirectorToMovie(@PathVariable("id") Long id, Model model){
         Movie movie = movieService.findById(id);
-        if(movie == null) return "/errors/movieNotFoundError";
+        if(movie == null) return "errors/movieNotFoundError";
 
         model.addAttribute("movie", movie);
         model.addAttribute("artists", artistService.findDirectorsToSel(movie));
-        return "/admin/selectDirectorToMovie";
+        return "admin/selectDirectorToMovie";
     }
     @GetMapping("/admin/setDirectorToMovie/{movie_id}/{artist_id}")
     public String addDirectorToMovie(@PathVariable("movie_id") Long movie_id,
                                      @PathVariable("artist_id") Long artist_id,
                                      Model model){
         Artist director = artistService.findById(artist_id);
-        if(director == null) return "/errors/artistNotFoundError";
+        if(director == null) return "errors/artistNotFoundError";
 
         Movie movie = movieService.findById(movie_id);
-        if(movie == null) return "/errors/movieNotFoundError";
+        if(movie == null) return "errors/movieNotFoundError";
 
         movie.setDirector(director);
         movieService.save(movie);
         model.addAttribute("movie", movie);
-        return "/admin/movieAdmin";
+        return "admin/movieAdmin";
     }
     @GetMapping("/admin/selectActorsToMovie/{id}")
     public String selectActorsToMovie(@PathVariable("id") Long id, Model model){
         Movie movie = movieService.findById(id);
-        if(movie == null) return "/errors/movieNotFoundError";
+        if(movie == null) return "errors/movieNotFoundError";
 
         model.addAttribute("movie", movie);
         model.addAttribute("artists", artistService.findActorsToSel(movie));
-        return "/admin/selectActorsToMovie";
+        return "admin/selectActorsToMovie";
     }
 
     @GetMapping("/admin/addActorToMovie/{movie_id}/{artist_id}")
@@ -119,10 +119,10 @@ public class MovieController {
                                      @PathVariable("artist_id") Long artist_id,
                                      Model model){
         Artist actor = artistService.findById(artist_id);
-        if(actor == null) return "/errors/artistNotFoundError";
+        if(actor == null) return "errors/artistNotFoundError";
 
         Movie movie = movieService.findById(movie_id);
-        if(movie == null) return "/errors/movieNotFoundError";
+        if(movie == null) return "errors/movieNotFoundError";
 
         movie.getActors().add(actor);
         movieService.save(movie);
@@ -134,10 +134,10 @@ public class MovieController {
                                   @PathVariable("artist_id") Long artist_id,
                                   Model model){
         Artist actor = artistService.findById(artist_id);
-        if(actor == null) return "/errors/artistNotFoundError";
+        if(actor == null) return "errors/artistNotFoundError";
 
         Movie movie = movieService.findById(movie_id);
-        if(movie == null) return "/errors/movieNotFoundError";
+        if(movie == null) return "errors/movieNotFoundError";
 
         movie.getActors().remove(actor);
         movieService.save(movie);
